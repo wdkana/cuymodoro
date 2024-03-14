@@ -1,0 +1,21 @@
+{
+  "name": "api-cuymodoro",
+  "version": "1.0.0",
+  "description": "cuymodoro api",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cuymodoro"
+  ],
+  "author": "deaafrizal",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "hyper-express": "^6.14.12",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.0"
+  }
+}
