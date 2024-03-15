@@ -8,7 +8,7 @@ function useFeatures() {
     queryKey: ["get_last_features"],
     queryFn: async () => {
       const { data } = await axios.get(
-        `http://localhost:3002/features/last/${localStorage.getItem(
+        `${import.meta.env.VITE_API_URL}/features/last/${localStorage.getItem(
           "username"
         )}`
       );
@@ -18,25 +18,23 @@ function useFeatures() {
 }
 
 function Hero() {
-  const [id, setId] = useState(null);
   const [title, setTitle] = useState("");
   const [level, setLevel] = useState("");
   const { data, error, isFetching } = useFeatures();
 
   const addFeature = useMutation({
-    mutationFn: async () => {
-      const { data } = await axios.post("http://localhost:3002/features/add", {
+    mutationFn: () => {
+      return axios.post(`${import.meta.env.VITE_API_URL}/features/add`, {
         title,
         level,
       });
-      setId(data.id);
     },
     onMutate: () => location.reload(),
   });
 
   const breakFeature = useMutation({
     mutationFn: () => {
-      return axios.put("http://localhost:3002/features/break", {
+      return axios.put(`${import.meta.env.VITE_API_URL}/features/break`, {
         id: data?.features?.id,
         username: localStorage.getItem("username"),
       });
@@ -46,7 +44,7 @@ function Hero() {
 
   const resumeFeature = useMutation({
     mutationFn: () => {
-      return axios.put("http://localhost:3002/features/resume", {
+      return axios.put(`${import.meta.env.VITE_API_URL}/features/resume`, {
         id: data?.features?.id,
         username: localStorage.getItem("username"),
         level,
@@ -57,22 +55,15 @@ function Hero() {
 
   const finishFeature = useMutation({
     mutationFn: () => {
-      axios.put("http://localhost:3002/features/finish", {
+      return axios.put(`${import.meta.env.VITE_API_URL}/features/finish`, {
         id: data?.features?.id,
         username: localStorage.getItem("username"),
       });
-      setTitle("");
-      setLevel("");
-      setId(null);
     },
     onMutate: () => location.reload(),
   });
 
-  useEffect(() => {
-    localStorage.setItem("username", "admin");
-  }, [data]);
-
-  if (isFetching) return <div>please wait...</div>;
+  if (isFetching) return localStorage.setItem("username", "admin");
   if (error) return <div>error, reload the page please :|</div>;
 
   return (
