@@ -1,49 +1,74 @@
-## Cuymodoro: Project Fullstack JS untuk Breakdown Durasi Pengerjaan Task
+<div align="center">
+  <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="50" height="50" />
+  <img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon"width="50" height="50" />
+  <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="50" height="50" />
+ <img src="https://techstack-generator.vercel.app/mysql-icon.svg" alt="icon" width="50" height="50" />
+</div>
 
-Project ini dibuat untuk membantu breakdown durasi pengerjaan sebuah task dalam project pengembangan software. Project ini menggunakan teknologi fullstack Javascript dengan ReactJS dan Tailwind CSS untuk frontend, HyperExpress sebagai backend, dan database MySQL Supabase dengan Redis.
+<br>
 
-### Fitur
+<h1 align="center">👋 Selamat datang di <br>CUYMODORO</h1>
+<h3 align="center">Fullstack Web App</h3>
+<p align="center">Cuymodoro adalah aplikasi web fullstack yang dibuat untuk menjadi teman setia dalam menjalankan teknik Pomodoro yang terkenal. Dengan tampilan yang ramah dan fitur yang mendukung produktivitas, Cuymodoro membantu pengguna dalam memulai pekerjaan dengan semangat dan fokus yang tinggi.
+</p>
 
-* Breakdown durasi task berdasarkan 3 tingkatan break level:
-    * Newcomer: 35% dari working time
-    * Reguler: 28% dari working time
-    * Enthusiast: 20% dari working time
-* Perhitungan otomatis total durasi pengerjaan task
-* Tampilan UI yang intuitif dan mudah digunakan
+<h3>Fitur utama dari Cuymodoro :</h3>
 
-### Teknologi
+🎈<b>Membuat Judul Kreatif</b>: 
+Setiap sesi kerja dimulai dengan membuat judul khusus untuk tugas atau proyek yang sedang dihadapi, Dengan judul yang kreatif, pengguna dapat dengan mudah mengidentifikasi dan mengingat setiap tugas yang mereka kerjakan.
 
-* Frontend: ReactJS, Tailwind CSS
-* Backend: HyperExpress
-* Database: MySQL Supabase
-* Cache: Redis
+🎈<b>Timer yang Fleksibel</b>: 
+Cuymodoro menyediakan timer Pomodoro yang dapat disesuaikan sesuai kebutuhan pengguna. Mulai dari 25 menit kerja hingga durasi yang lebih panjang, pengguna memiliki kendali penuh atas berapa lama mereka ingin berkonsentrasi sebelum istirahat.
 
-### Cara Penggunaan
-1. Jalankan `./app.sh install` untuk menginstal dependensi.
-2. Jalankan `./app.sh start` untuk memulai server backend dan frontend.
-3. Buka browser web Anda dan kunjungi `http://localhost:5173` untuk mengakses project.
+🎈<b>Fitur Istirahat yang Merevitalisasi</b>: 
+Setelah sesi kerja selesai, Cuymodoro menghadirkan fitur istirahat yang memungkinkan pengguna untuk merevitalisasi diri selama beberapa menit sebelum melanjutkan ke tugas berikutnya.
 
-### Catatan
+🎈<b>Manajemen Tugas yang Terorganisir</b>: 
+Cuymodoro membantu pengguna dalam melacak dan mengelola tugas-tugas mereka dengan baik. Dari tugas yang selesai hingga yang masih dalam proses, aplikasi ini membantu pengguna untuk tetap teratur dan efisien.
 
-* Project ini masih dalam tahap pengembangan.
-* Anda dapat menambahkan fitur dan functionality sesuai kebutuhan Anda.
+Dengan Cuymodoro, pengguna dapat mengubah waktu bekerja menjadi pengalaman yang menyenangkan dan produktif. Temukan keajaiban dari teknik Pomodoro dengan Cuymodoro - teman setia dalam menghadapi tugas-tugas sehari-hari.
 
-### Kontribusi
+<br/>
 
-Anda dipersilahkan untuk berkontribusi dalam pengembangan project ini. Silahkan fork project ini dan kirimkan pull request Anda.
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+<a href="https://www.linkedin.com/in/dea-afrizal-a7326457/?originalSubdomain=id" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="supunnanayakkara" height="30" width="40" /></a>
+<a href="https://instagram.com/dea.afrizal" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="supun___lk" height="30" width="40" /></a>
+<a href="https://www.youtube.com/@deaafrizal" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="supun nanayakkara" height="30" width="40" /></a>
+</p>
+<br>
 
-### Referensi
+<img src="https://i.imgur.com/dBaSKWF.gif" height="20" width="100%">
 
-* ReactJS: [https://reactjs.org/](https://reactjs.org/)
-* Tailwind CSS: [https://tailwindcss.com/](https://tailwindcss.com/)
-* HyperExpress: [https://github.com/kartikk221/hyper-express](https://github.com/kartikk221/hyper-express)
-* MySQL Supabase: [https://supabase.io/](https://supabase.io/)
-* Redis: [https://redis.io/](https://redis.io/)
+<h3 align="left">Languages and Tools:</h3>
 
-### Dukungan
+- Backend
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=php,nodejs" />
+  </a>
+</p>
 
-Jika Anda membutuhkan bantuan atau ingin memberikan saran, Anda dapat membuka issue di Github repository project ini.
+- Frontend
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=js,react,tailwind" />
+  </a>
+</p>
 
-### Terima kasih
+- Database
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=mysql" />
+  </a>
+</p>
 
-Terima kasih telah menggunakan project ini!
+- Tools
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=git,github,idea,vscode,postman" />
+  </a>
+</p>
+
+<br>
+<p align="right" > Created with 🧡 by Dea Afrizal</p>
