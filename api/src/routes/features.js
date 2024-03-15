@@ -1,7 +1,7 @@
 const HyperE = require('hyper-express')
 const db = require("../config/database")
 const moment = require('moment')
-const { getLastDataByUsername, addNewTask } = require('../model')
+const { getLastDataByUsername, addNewTask, checkFeatureStatus, updateFeatureCycle, createFeatureHistory } = require('../model')
 
 const features_route = new HyperE.Router()
 
@@ -20,29 +20,25 @@ features_route.post("/add", async (req, res) => {
     })
 })
 
+async function timeCalculation(started_time, break_time, status, incrementCycle, level, username, id) {
+    const startedMoment = moment(started_time, 'HH:mm:ss')
+    const breakMoment = moment(break_time, 'HH:mm:ss')
+
+    const duration = moment.duration(breakMoment.diff(startedMoment))
+    const total_hours = moment.utc(duration.asMilliseconds()).format("HH:mm:ss")
+
+    if (started_time && break_time && status == "break") {
+        const newCycle = await updateFeatureCycle(id, username, level, incrementCycle)
+        if (newCycle) await createFeatureHistory(id, username, total_hours)
+    }
+}
+
 features_route.put("/resume", async (req, res) => {
     const { id, username, level } = await req.json()
-    db.query(`SELECT started_time, break_time, status, cycle FROM features WHERE id='${id}' AND username='${username}'`, (err, result) => {
-        if (err) return console.log('error resuming task...')
-        const started_time = result[0].started_time
-        const break_time = result[0].break_time
-        const status = result[0].status
-        const cycle = result[0].cycle
-        const incrementCycle = parseInt(cycle) + 1
-
-        const startedMoment = moment(started_time, 'HH:mm:ss')
-        const breakMoment = moment(break_time, 'HH:mm:ss')
-
-        const duration = moment.duration(breakMoment.diff(startedMoment))
-
-        const total_hours = moment.utc(duration.asMilliseconds()).format("HH:mm:ss")
-        if (started_time && break_time && status == "break") {
-            db.query(`UPDATE features SET cycle='${incrementCycle}', status='ongoing', level='${level}', started_time=NOW(), break_time=NULL where id='${id}' AND username='${username}'`)
-            db.query(`INSERT INTO feature_history (feature_id, total_hours, username) VALUES ('${id}', '${total_hours}', '${username}')`)
-        } else {
-            console.log('cannot resuming the task')
-        }
-    })
+    const { started_time, break_time, status, cycle } = await checkFeatureStatus(id, username)
+    const incrementCycle = parseInt(cycle) + 1
+    const newTime = await timeCalculation(started_time, break_time, status, incrementCycle, level, username, id)
+    res.json({ time: newTime })
 })
 
 features_route.put("/finish", async (req, res) => {
