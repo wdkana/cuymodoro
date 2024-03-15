@@ -1,32 +1,22 @@
 const HyperE = require('hyper-express')
 const db = require("../config/database")
 const moment = require('moment')
+const { getLastDataByUsername, addNewTask } = require('../model')
 
 const features_route = new HyperE.Router()
 
 features_route.get("/last/:username", async (req, res) => {
     const { username } = req.params
-    db.query(`SELECT * FROM features WHERE username='${username}' AND status <> 'done' ORDER BY ID DESC LIMIT 1`, (err, result) => {
-        if (err) return console.warn('get data feature error...')
-        res.json({ features: result[0] })
-    })
-})
-
-features_route.get("/get/:id", async (req, res) => {
-    const { id } = req.params
-    db.query(`SELECT title, level FROM features WHERE id='${id}'`, (err, result) => {
-        if (err) return console.warn('get status error...')
-        res.json({ title: result[0].title, level: result[0].level })
-    })
+    const result = await getLastDataByUsername(username)
+    res.json({ features: result })
 })
 
 features_route.post("/add", async (req, res) => {
-    const { title, level } = await req.json()
-    db.query(`INSERT INTO features (username, title, level) VALUES ('admin', '${title}','${level}')`, (err, result) => {
-        if (err) return console.log("inserting features error!")
-        res.json({
-            id: result.insertId
-        })
+    const { username, title, level } = await req.json()
+    const result = await addNewTask(username, title, level)
+    console.log("🚀 ~ features_route.post ~ result:", result)
+    res.json({
+        id: result.insertId
     })
 })
 

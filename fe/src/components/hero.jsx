@@ -25,6 +25,7 @@ function Hero() {
   const addFeature = useMutation({
     mutationFn: () => {
       return axios.post(`${import.meta.env.VITE_API_URL}/features/add`, {
+        username: localStorage.getItem("username"),
         title,
         level,
       });
@@ -63,7 +64,11 @@ function Hero() {
     onMutate: () => location.reload(),
   });
 
-  if (isFetching) return localStorage.setItem("username", "admin");
+  useEffect(() => {
+    localStorage.setItem("username", "admin");
+  }, []);
+
+  if (isFetching) return <div>please wait...</div>;
   if (error) return <div>error, reload the page please :|</div>;
 
   return (
