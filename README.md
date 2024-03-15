@@ -15,7 +15,8 @@
 <h3>Fitur utama dari Cuymodoro :</h3>
 
 🎈<b>Membuat Judul Kreatif</b>: 
-Setiap sesi kerja dimulai dengan membuat judul khusus untuk tugas atau proyek yang sedang dihadapi. Dengan judul yang kreatif, pengguna dapat dengan mudah mengidentifikasi dan mengingat setiap tugas yang mereka kerjakan.
+
+Setiap sesi kerja dimulai dengan membuat judul khusus untuk tugas atau proyek yang sedang dihadapi, Dengan judul yang kreatif, pengguna dapat dengan mudah mengidentifikasi dan mengingat setiap tugas yang mereka kerjakan.
 
 🎈<b>Timer yang Fleksibel</b>: 
 Cuymodoro menyediakan timer Pomodoro yang dapat disesuaikan sesuai kebutuhan pengguna. Mulai dari 25 menit kerja hingga durasi yang lebih panjang, pengguna memiliki kendali penuh atas berapa lama mereka ingin berkonsentrasi sebelum istirahat.
