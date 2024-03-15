@@ -1,134 +1,129 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import Button from "./button";
 
-function timeNow() {
-  const date = new Date();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const time = `${hours}:${minutes}`;
-  return time;
-}
-
-function Hero() {
-  const [id, setId] = useState(0);
-  const [title, setTitle] = useState("");
-  const [level, setLevel] = useState("");
-  const [status, setStatus] = useState("");
-  const [statusButton, setStatusButton] = useState("Mulai");
-
-  const addFeature = useMutation({
-    mutationFn: ({ title, level }) => {
-      axios
-        .post("http://localhost:3002/features/add", {
-          title,
-          level,
-        })
-        .then((r) => setId(r.data.id))
-        .catch(() => "error");
-    },
-  });
-
-  const getLastData = () => {
-    axios
-      .get(
+function useFeatures() {
+  return useQuery({
+    queryKey: ["get_last_features"],
+    queryFn: async () => {
+      const { data } = await axios.get(
         `http://localhost:3002/features/last/${localStorage.getItem(
           "username"
         )}`
-      )
-      .then((r) => {
-        setId(r.data.features.id);
-        setTitle(r.data.features.title);
-        setLevel(r.data.features.level);
-        setStatus(r.data.features.status);
+      );
+      return data;
+    },
+  });
+}
 
-        switch (r.data.features.status) {
-          case "ongoing":
-            setStatusButton("break dulu");
-            break;
-          case "break":
-            setStatusButton("Lanjutin");
-          default:
-            setStatusButton("Mulai");
-            break;
-        }
-        if (r.data.features.status == "break") {
-          setStatusButton("Lanjutkan");
-        }
+function Hero() {
+  const [id, setId] = useState(null);
+  const [title, setTitle] = useState("");
+  const [level, setLevel] = useState("");
+  const { data, error, isFetching } = useFeatures();
+
+  const addFeature = useMutation({
+    mutationFn: async () => {
+      const { data } = await axios.post("http://localhost:3002/features/add", {
+        title,
+        level,
       });
-  };
-
-  useEffect(() => {
-    localStorage.setItem("username", "admin");
-    getLastData();
-  }, []);
+      setId(data.id);
+    },
+    onMutate: () => location.reload(),
+  });
 
   const breakFeature = useMutation({
     mutationFn: () => {
-      axios.put("http://localhost:3002/features/break", {
-        id,
-        break_time: timeNow(),
+      return axios.put("http://localhost:3002/features/break", {
+        id: data?.features?.id,
+        username: localStorage.getItem("username"),
       });
     },
+    onMutate: () => location.reload(),
   });
 
+  const resumeFeature = useMutation({
+    mutationFn: () => {
+      return axios.put("http://localhost:3002/features/resume", {
+        id: data?.features?.id,
+        username: localStorage.getItem("username"),
+        level,
+      });
+    },
+    onMutate: () => location.reload(),
+  });
+
+  const finishFeature = useMutation({
+    mutationFn: () => {
+      axios.put("http://localhost:3002/features/finish", {
+        id: data?.features?.id,
+        username: localStorage.getItem("username"),
+      });
+      setTitle("");
+      setLevel("");
+      setId(null);
+    },
+    onMutate: () => location.reload(),
+  });
+
+  useEffect(() => {
+    localStorage.setItem("username", "admin");
+  }, [data]);
+
+  if (isFetching) return <div>please wait...</div>;
+  if (error) return <div>error, reload the page please :|</div>;
+
   return (
-    <div className="flex hero items-center">
-      {addFeature.isError || breakFeature.isError ? (
-        <div>An error occurred: {mutation.error.message}</div>
-      ) : null}
-      <div className="hero-content flex-col lg:flex-row">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-5xl font-bold">⏲ Cuymodoro</h1>
-          <div className="flex flex-col gap-2">
-            <input
-              type="text"
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Fitur apa yang kamu kerjain"
-              className="input input-bordered w-full max-w-xl rounded-md py-2 px-4"
-              defaultValue={title}
-            />
-            <select
-              className="select select-bordered w-full max-w-xl py-2 px-4"
-              onChange={(e) => setLevel(e.target.value)}
-              value={level}
-            >
-              <option defaultValue={"-"}>Pilih Break Level</option>
-              <option value={"newcomers"}>New Comers</option>
-              <option value={"reguler"}>Reguler</option>
-              <option value={"enthusiast"}>Enthusiast</option>
-            </select>
-          </div>
-          {addFeature.isSuccess ? <div>feature added!</div> : null}
-          {status && <div>status: {status}</div>}
-          {breakFeature.isSuccess ? (
-            <div>TAKE A BREAK FOR xx:xx minutes</div>
+    <div className="hero">
+      <div className="flex flex-col gap-4 w-full p-8">
+        <h1 className="text-4xl text-center font-bold"> Cuymodoro</h1>
+        <hr />
+        <div>
+          {addFeature.isError || breakFeature.isError ? (
+            <p>An error occurred</p>
           ) : null}
-          <button
-            className="btn btn-primary rounded-md"
-            onClick={() => {
-              switch (status) {
-                case "ongoing":
-                  breakFeature.mutate();
-                  break;
-                case "break":
-                  //
-                  break;
-                default:
-                  addFeature.mutate({ title, level });
-                  break;
-              }
-            }}
+          {data?.features?.status && <i>status: {data?.features?.status}</i>}
+          {data?.features?.status && data?.features?.status == "break" ? (
+            <p>take a break for xx:xx minutes</p>
+          ) : null}
+        </div>
+        <div className="flex flex-col gap-4">
+          <input
+            type="text"
+            onChange={(e) =>
+              !data?.features?.status ? setTitle(e.target.value) : null
+            }
+            placeholder="Fitur apa yang kamu kerjain"
+            className="input input-bordered w-full rounded-md"
+            defaultValue={data?.features?.title}
+            disabled={
+              data?.features?.status && data?.features?.status !== "done"
+            }
+          />
+          <select
+            className="select select-bordered w-full"
+            onChange={(e) => setLevel(e.target.value)}
+            value={level || data?.features?.level}
+            disabled={
+              data?.features?.status && data?.features?.status !== "break"
+            }
           >
-            {statusButton}
-          </button>
-          <button
-            onClick={() => {
-              alert(`feature ${title} selesai`);
-            }}
-          >
-            Selesai
-          </button>
+            <option defaultValue={"-"}>Pilih Break Level</option>
+            <option value={"newcomers"}>New Comers</option>
+            <option value={"reguler"}>Reguler</option>
+            <option value={"enthusiast"}>Enthusiast</option>
+          </select>
+          <Button
+            status={data?.features?.status}
+            addFeature={addFeature}
+            breakFeature={breakFeature}
+            resumeFeature={resumeFeature}
+          />
+          {data?.features?.status == "break" ? (
+            <button onClick={() => finishFeature.mutate()}>Selesai</button>
+          ) : null}
         </div>
       </div>
     </div>

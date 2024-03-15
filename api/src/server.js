@@ -1,6 +1,7 @@
 const HyperE = require('hyper-express')
 const cors = require('cors')
 const db = require("./config/database")
+const moment = require('moment')
 
 const hyper = new HyperE.Server()
 const PORT = process.env.PORT || 3002
@@ -25,9 +26,7 @@ const features_route = new HyperE.Router()
 
 features_route.get("/last/:username", async (req, res) => {
     const { username } = req.params
-    console.log("🚀 ~ features_route.get ~ username:", username)
-
-    db.query(`SELECT * FROM features where username='${username}' ORDER BY ID DESC LIMIT 1`, (err, result) => {
+    db.query(`SELECT * FROM features WHERE username='${username}' AND status <> 'done' ORDER BY ID DESC LIMIT 1`, (err, result) => {
         console.log(result)
         if (err) return console.warn('get data feature error...')
         res.json({ features: result[0] })
@@ -53,8 +52,41 @@ features_route.post("/add", async (req, res) => {
 })
 
 features_route.put("/break", async (req, res) => {
-    const { id, break_time } = await req.json()
-    db.query(`update features set break_time='${break_time}', status='break' where id='${id}'`, (err, result) => {
+    const { id, username } = await req.json()
+    db.query(`update features set break_time=NOW(), status='break' where id='${id}' and username='${username}'`, (err, result) => {
+        if (err) return console.log('updating feature end_time failed, sorry!')
+        res.json({ id })
+    })
+})
+
+features_route.put("/resume", async (req, res) => {
+    const { id, username, level } = await req.json()
+    db.query(`SELECT started_time, break_time, status, cycle FROM features WHERE id='${id}' and username='${username}'`, (err, result) => {
+        if (err) return console.log('error resuming task...')
+        const started_time = result[0].started_time
+        const break_time = result[0].break_time
+        const status = result[0].status
+        const cycle = result[0].cycle
+        const incrementCycle = parseInt(cycle) + 1
+
+        const startedMoment = moment(started_time, 'HH:mm:ss')
+        const breakMoment = moment(break_time, 'HH:mm:ss')
+
+        const duration = moment.duration(breakMoment.diff(startedMoment))
+
+        const total_hours = moment.utc(duration.asMilliseconds()).format("HH:mm:ss")
+        if (started_time && break_time && status == "break") {
+            db.query(`UPDATE features set cycle='${incrementCycle}', status='ongoing', level='${level}', started_time=NOW(), break_time=NULL where id='${id}' and username='${username}'`)
+            db.query(`INSERT INTO feature_history (feature_id, total_hours, username) VALUES ('${id}', '${total_hours}', '${username}')`)
+        } else {
+            console.log('cannot resuming the task')
+        }
+    })
+})
+
+features_route.put("/finish", async (req, res) => {
+    const { id, username } = await req.json()
+    db.query(`update features set end_time=NOW(), status='done' where id='${id}' and username='${username}'`, (err, result) => {
         if (err) return console.log('updating feature end_time failed, sorry!')
         res.json({ id })
     })
