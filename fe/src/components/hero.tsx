@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { TResponseGetFeatures } from "@/types/feature";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Button from "./button";
 
 function useFeatures() {
   return useQuery({
     queryKey: ["get_last_features"],
     queryFn: async () => {
-      const { data } = await axios.get(
+      const { data } = await axios.get<TResponseGetFeatures>(
         `${import.meta.env.VITE_API_URL}/features/last/${localStorage.getItem(
           "username"
         )}`
@@ -64,13 +65,36 @@ function Hero() {
     onMutate: () => location.reload(),
   });
 
+  const handleSubmit = () => {
+    switch (data?.features?.status) {
+      case "break":
+        resumeFeature.mutate();
+        break;
+      case "ongoing":
+        breakFeature.mutate();
+        break;
+      default:
+        addFeature.mutate();
+    }
+  };
+
   useEffect(() => {
-    localStorage.setItem("username", "admin");
+    localStorage.setItem("username", "farhan_2");
   }, []);
 
   if (isFetching) return <div>please wait...</div>;
   if (error) return <div>error, reload the page please :|</div>;
 
+  const buttonText = () => {
+    switch (data?.features?.status) {
+      case "ongoing":
+        return "break dulu";
+      case "break":
+        return "Lanjutin";
+      default:
+        return "Mulai";
+    }
+  };
   return (
     <div className="hero">
       <div className="flex flex-col gap-4 w-full p-8">
@@ -112,13 +136,31 @@ function Hero() {
             <option value={"enthusiast"}>Enthusiast</option>
           </select>
           <Button
-            status={data?.features?.status}
-            addFeature={addFeature}
-            breakFeature={breakFeature}
-            resumeFeature={resumeFeature}
-          />
+            disabled={
+              addFeature.isPending ||
+              resumeFeature.isPending ||
+              breakFeature.isPending
+            }
+            onClick={handleSubmit}
+          >
+            {buttonText()}{" "}
+            {(addFeature.isPending ||
+              resumeFeature.isPending ||
+              breakFeature.isPending) &&
+              "loading..."}
+          </Button>
           {data?.features?.status == "break" ? (
-            <button onClick={() => finishFeature.mutate()}>Selesai</button>
+            <button
+              disabled={
+                addFeature.isPending ||
+                resumeFeature.isPending ||
+                breakFeature.isPending ||
+                finishFeature.isPending
+              }
+              onClick={() => finishFeature.mutate()}
+            >
+              Selesai {finishFeature.isPending && "loading..."}
+            </button>
           ) : null}
         </div>
       </div>
