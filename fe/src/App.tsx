@@ -1,6 +1,6 @@
-import "./App.css";
-import Hero from "./components/hero";
-import Layouts from "./components/layouts";
+import "@/App.css";
+import Hero from "@/components/hero";
+import Layouts from "@/components/layouts";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();

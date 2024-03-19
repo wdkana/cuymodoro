@@ -3,5 +3,5 @@
 </div>
 
 <p align="center">
-  This is the front end part of the Cuymodoro Application
+  This is the back end part of the Cuymodoro Application
 </p>
