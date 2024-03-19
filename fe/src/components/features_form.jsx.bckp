@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import Button from "./button";
+import Button from "./flexi_button.jsx.bckp";
+import AddTaskForm from "./AddTaskForm";
 
 function useFeatures() {
   return useQuery({
@@ -30,7 +31,6 @@ function Hero() {
         level,
       });
     },
-    onMutate: () => location.reload(),
   });
 
   const breakFeature = useMutation({
@@ -40,7 +40,6 @@ function Hero() {
         username: localStorage.getItem("username"),
       });
     },
-    onMutate: () => location.reload(),
   });
 
   const resumeFeature = useMutation({
@@ -51,7 +50,6 @@ function Hero() {
         level: level || data?.features?.level,
       });
     },
-    onMutate: () => location.reload(),
   });
 
   const finishFeature = useMutation({
@@ -61,7 +59,6 @@ function Hero() {
         username: localStorage.getItem("username"),
       });
     },
-    onMutate: () => location.reload(),
   });
 
   useEffect(() => {
@@ -76,7 +73,8 @@ function Hero() {
       <div className="flex flex-col gap-4 w-full p-8">
         <h1 className="text-4xl text-center font-bold"> Cuymodoro</h1>
         <hr />
-        <div>
+        <AddTaskForm />
+        {/* <div>
           {addFeature.isError || breakFeature.isError ? (
             <p>An error occurred</p>
           ) : null}
@@ -120,7 +118,7 @@ function Hero() {
           {data?.features?.status == "break" ? (
             <button onClick={() => finishFeature.mutate()}>Selesai</button>
           ) : null}
-        </div>
+        </div> */}
       </div>
     </div>
   );
