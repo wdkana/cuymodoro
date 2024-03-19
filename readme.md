@@ -1,74 +1,126 @@
 <div align="center">
-  <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="50" height="50" />
-  <img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon"width="50" height="50" />
-  <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="50" height="50" />
- <img src="https://techstack-generator.vercel.app/mysql-icon.svg" alt="icon" width="50" height="50" />
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+
+<br />
+
+<h1 style="font-weight:900" align="center">🕒 CUYMODORO 🕒</h1>
+
+![underconstruction][underconstruction]
+
 </div>
 
-<br>
+## ✨ Apasih Cuymodoro Itu? ✨
 
-<h1 align="center">👋 Selamat datang di <br>CUYMODORO</h1>
-<h3 align="center">Fullstack Web App</h3>
-<p align="center">Cuymodoro adalah aplikasi web fullstack yang dibuat untuk menjadi teman setia dalam menjalankan teknik Pomodoro yang terkenal. Dengan tampilan yang ramah dan fitur yang mendukung produktivitas, Cuymodoro membantu pengguna dalam memulai pekerjaan dengan semangat dan fokus yang tinggi.
-</p>
+Cuymodoro adalah aplikasi produktivitas dalam bentuk website. Sering kali dalam mengerjakan tugas kita mengatur waktu yang harus kita luangkan dan tak jarang menggunakan timer untuk hal tersebut. Tetapi dalam pengerjaan pada kurun waktu yang ditentukan tersebut terasa sangat lama dan melelahkan, belum lagi jika tugasnya belum rampung yang berdampak pada burnout karena lama mengerjakan ataupun penundaan pekerjaan yang berakhir pada lupa. Dari permasalahan tersebut, bagaimana jika kita membuat suatu aplikasi dengan timer interaktif serta memungkinkan untuk melacak tugas yang kita kerjakan?
 
-<h3>Fitur utama dari Cuymodoro :</h3>
+### 🚀 Fitur Utama Cuymodoro
 
-🎈<b>Membuat Judul Kreatif</b>: 
-Setiap sesi kerja dimulai dengan membuat judul khusus untuk tugas atau proyek yang sedang dihadapi. Dengan judul yang kreatif, pengguna dapat dengan mudah mengidentifikasi dan mengingat setiap tugas yang mereka kerjakan.
+Merupakan implementasi dengan improvisasi dari teknik _Pomodoro_, Cuymodoro mampu mengubah pengalaman bekerkamenjadi lebih efektif, produktif, dan menyenangkan sehingga terhindar dari burnout. berikut adalah fitur utamanya:
 
-🎈<b>Timer yang Fleksibel</b>: 
-Cuymodoro menyediakan timer Pomodoro yang dapat disesuaikan sesuai kebutuhan pengguna. Mulai dari 25 menit kerja hingga durasi yang lebih panjang, pengguna memiliki kendali penuh atas berapa lama mereka ingin berkonsentrasi sebelum istirahat.
+-   **Setel Sesuai Kebutuhan**:
+    Cuymodoro menawarkan timer Pomodoro interaktif yang akan menentukan waktu istirahat didasarkan dari waktu pengerjaan serta seberapa niat kamu dalam mengerjakan tugas. Pembagian niatnya sebagai berikut:
+    -   New Comer: 35% dari waktu kerja
+    -   Reguler : 28% dari waktu kerja
+    -   Enthusiast : 20% dari waktu kerja
+-   **Kerjakan Lagi** : Cuymodoro akan membantumu menampilkan tugas terakhir yang belum kamu selesaikan saat kamu buka kembali, tidak perlu khawatir akan kehilangan tugas yang belum selesai.
+-   **Lacak Tugasmu** : Ingin tahu berapa banyak waktu yang kamu kerjakan untuk satu tugas? Cuymodoro mencatat sebearapa banyak kamu memerlukan sesi Pomodoro serta waktu yang kamu luangkan untuk mengerjakannya.
 
-🎈<b>Fitur Istirahat yang Merevitalisasi</b>: 
-Setelah sesi kerja selesai, Cuymodoro menghadirkan fitur istirahat yang memungkinkan pengguna untuk merevitalisasi diri selama beberapa menit sebelum melanjutkan ke tugas berikutnya.
+### ⚙️ Teknologi Pengembangan
 
-🎈<b>Manajemen Tugas yang Terorganisir</b>: 
-Cuymodoro membantu pengguna dalam melacak dan mengelola tugas-tugas mereka dengan baik. Dari tugas yang selesai hingga yang masih dalam proses, aplikasi ini membantu pengguna untuk tetap teratur dan efisien.
+-   Frontend :
 
-Dengan Cuymodoro, pengguna dapat mengubah waktu bekerja menjadi pengalaman yang menyenangkan dan produktif. Temukan keajaiban dari teknik Pomodoro dengan Cuymodoro - teman setia dalam menghadapi tugas-tugas sehari-hari.
+    ![javascript][javascript]
+    [![React][React.js]][React-url]
+    [![Tailwind][TailwindCSS]][Tailwind-url]
 
-<br/>
+-   Backend :
 
-<h3 align="left">Connect with me:</h3>
-<p align="left">
-<a href="https://www.linkedin.com/in/dea-afrizal-a7326457/?originalSubdomain=id" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="supunnanayakkara" height="30" width="40" /></a>
-<a href="https://instagram.com/dea.afrizal" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="supun___lk" height="30" width="40" /></a>
-<a href="https://www.youtube.com/@deaafrizal" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="supun nanayakkara" height="30" width="40" /></a>
-</p>
-<br>
+    ![javascript][javascript]
+    [![Node.js][NodeJS]][NodeJS-url]
 
-<img src="https://i.imgur.com/dBaSKWF.gif" height="20" width="100%">
+-   Database :
 
-<h3 align="left">Languages and Tools:</h3>
+    [![MySQL][MySQL]][MySQL-url]
 
-- Backend
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=php,nodejs" />
-  </a>
-</p>
+## 📙 Panduan Penggunaan 📙
 
-- Frontend
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=js,react,tailwind" />
-  </a>
-</p>
+### 📝 Prerequisites
 
-- Database
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=mysql" />
-  </a>
-</p>
+-   Node Package Manager (NPM)
+-   MySQL
+-   Niat
 
-- Tools
-<p align="left">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=git,github,idea,vscode,postman" />
-  </a>
-</p>
+### 👣 Langkah Instalasi
 
-<br>
-<p align="right" > Created with 🧡 by Dea Afrizal</p>
+1. Instalasi package
+
+    Untuk menginstall package, kamu perlu menjalankan perintah:
+
+    ```
+    ./app.sh install
+    ```
+
+2. Import Database
+
+    Untuk struktur database dapat kamu unduh di [sini](cuymodoro.sql)
+
+3. Menjalankan aplikasi
+
+    Untuk menjalankan aplikasi di perangkat, kamu daperlupat menjalankan perintah:
+
+    ```
+    ./app.sh install
+    ```
+
+4. Untuk mulai menggunakan aplikasi kita kamu dapat mengunjungi [http:/localhost:5371](http:/localhost:5371)
+
+## 🤝 Kontribusi
+
+Kontribusi merupakan hal yang dapat memberikan ruang belajar serta inspirasi dari proyek ini. Setiap kontribusi yang kamu berikan **Sangat Dihargai**
+
+Jika kamu memiliki saran untuk membuat proyek ini jadi lebih baik, kamu bisa melakukan fork dan membuat pull request atau kamu juga bisa membuat issue baru. Jangan lupa bintangya ya kak! Terima Kasih!
+
+## 📙 Referensi
+
+Berikut adalah beberapa referensi yang dapat kamu baca:
+
+-   [React.js](https://reactjs.org/)
+-   [Tailwind CSS](https://tailwindcss.com/)
+-   [Node.js](https://nodejs.org/en)
+-   [MySQL](https://www.mysql.com/)
+
+## Jangan Lupa Mampir
+
+[![instagram][instagram]](instagram.com/dea.afrizal)
+[![linkedin][linkedin]](https://www.linkedin.com/in/dea-afrizal-a7326457)
+[![youtube][youtube]](https://www.youtube.com/@deaafrizal)
+[![website][website]](https://www.deaafrizal.com)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+[React-url]: https://reactjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Tailwind-url]: https://tailwindcss.com/
+[TailwindCSS]: https://img.shields.io/badge/tailwindcss-0F172A?&style=for-the-badge&logo=tailwindcss&logoColor=61DAFB
+[MySQL-url]: https://www.mysql.com/
+[MySQL]: https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white
+[NodeJS-url]: https://nodejs.org/en
+[NodeJS]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[javascript]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[instagram]: https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white
+[linkedin]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
+[youtube]: https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white
+[website]: https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white
+[underconstruction]: https://img.shields.io/badge/Status-WIP-FFFF00?style=for-the-badge&logoColor=FFFF00
+[contributors-shield]: https://img.shields.io/github/contributors/deaaprizal/cuymodoro.svg?style=for-the-badge
+[contributors-url]: https://github.com/deaaprizal/cuymodoro/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/deaaprizal/cuymodoro.svg?style=for-the-badge
+[forks-url]: https://github.com/deaaprizal/cuymodoro/network/members
+[stars-shield]: https://img.shields.io/github/stars/deaaprizal/cuymodoro.svg?style=for-the-badge
+[stars-url]: https://github.com/deaaprizal/cuymodoro/stargazers
+[issues-shield]: https://img.shields.io/github/issues/deaaprizal/cuymodoro.svg?style=for-the-badge
+[issues-url]: https://github.com/deaaprizal/cuymodoro/issues
