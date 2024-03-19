@@ -27,7 +27,7 @@ Merupakan implementasi dengan improvisasi dari teknik _Pomodoro_, Cuymodoro mamp
     -   Reguler : 28% dari waktu kerja
     -   Enthusiast : 20% dari waktu kerja
 -   **Kerjakan Lagi** : Cuymodoro akan membantumu menampilkan tugas terakhir yang belum kamu selesaikan saat kamu buka kembali, tidak perlu khawatir akan kehilangan tugas yang belum selesai.
--   **Lacak Tugasmu** : Ingin tahu berapa banyak waktu yang kamu kerjakan untuk satu tugas? Cuymodoro mencatat sebearapa banyak kamu memerlukan sesi Pomodoro serta waktu yang kamu luangkan untuk mengerjakannya.
+-   **Lacak Tugasmu** : Ingin tahu berapa banyak waktu **yang** kamu kerjakan untuk satu tugas? Cuymodoro mencatat sebearapa banyak kamu memerlukan sesi Pomodoro serta waktu yang kamu luangkan untuk mengerjakannya.
 
 ### ⚙️ Teknologi Pengembangan
 
@@ -40,6 +40,7 @@ Merupakan implementasi dengan improvisasi dari teknik _Pomodoro_, Cuymodoro mamp
 -   Backend :
 
     ![javascript][javascript]
+    ![Hyper-Express][Express-logo]
     [![Node.js][NodeJS]][NodeJS-url]
 
 -   Database :
@@ -52,6 +53,8 @@ Merupakan implementasi dengan improvisasi dari teknik _Pomodoro_, Cuymodoro mamp
 
 -   Node Package Manager (NPM)
 -   MySQL
+-   Node JS 18+
+-   Hyper Express
 -   Niat
 
 ### 👣 Langkah Instalasi
@@ -73,7 +76,7 @@ Merupakan implementasi dengan improvisasi dari teknik _Pomodoro_, Cuymodoro mamp
     Untuk menjalankan aplikasi di perangkat, kamu daperlupat menjalankan perintah:
 
     ```
-    ./app.sh install
+    ./app.sh start
     ```
 
 4. Untuk mulai menggunakan aplikasi kita kamu dapat mengunjungi [http:/localhost:5371](http:/localhost:5371)
@@ -92,18 +95,21 @@ Berikut adalah beberapa referensi yang dapat kamu baca:
 -   [Tailwind CSS](https://tailwindcss.com/)
 -   [Node.js](https://nodejs.org/en)
 -   [MySQL](https://www.mysql.com/)
+-   [Hyper-Express](https://github.com/kartikk221/hyper-express)
 
 ## Jangan Lupa Mampir
 
 [![instagram][instagram]](instagram.com/dea.afrizal)
-[![linkedin][linkedin]](https://www.linkedin.com/in/dea-afrizal-a7326457)
 [![youtube][youtube]](https://www.youtube.com/@deaafrizal)
 [![website][website]](https://www.deaafrizal.com)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
+[Hyper-Express]: https://github.com/kartikk221/hyper-express 
+[Daisy-ui]: https://daisyui.com/
 [React-url]: https://reactjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Express-logo]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
 [Tailwind-url]: https://tailwindcss.com/
 [TailwindCSS]: https://img.shields.io/badge/tailwindcss-0F172A?&style=for-the-badge&logo=tailwindcss&logoColor=61DAFB
 [MySQL-url]: https://www.mysql.com/
@@ -112,7 +118,6 @@ Berikut adalah beberapa referensi yang dapat kamu baca:
 [NodeJS]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
 [javascript]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
 [instagram]: https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white
-[linkedin]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
 [youtube]: https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white
 [website]: https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white
 [underconstruction]: https://img.shields.io/badge/Status-WIP-FFFF00?style=for-the-badge&logoColor=FFFF00
