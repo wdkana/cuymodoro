@@ -7,6 +7,7 @@ import {
   TUpdateFeatureCycle,
 } from "../features/task";
 import { MysqlError } from "mysql";
+import { IDatabaseInsertResult } from "./sql";
 
 export const getLastDataByUsername = (
   username: string

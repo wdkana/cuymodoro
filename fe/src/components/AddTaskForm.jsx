@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 
 function AddTaskForm() {
   return (
-    <Form method="post" action="/">
+    <Form method="post" action="/apps">
       <div className="flex flex-col gap-4">
         <input
           type="text"

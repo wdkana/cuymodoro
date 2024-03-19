@@ -13,9 +13,29 @@ user_router.get("/profile", async (_: Request, res: Response) => {
   });
 });
 
-user_router.post("/login", async (_: Request, res: Response) => {
-  console.log("user login access");
-  res.send("login user");
+user_router.post("/login", async (req: Request, res: Response) => {
+  const {data: { username, password }} = JSON.parse(await req.text())
+  
+  console.log("🚀 ~ user_router.post:", username)
+  console.log("🚀 ~ user_router.post:", password)
+  res.send("LOGIN OK");
+});
+
+user_router.post("/register", async (req: Request, res: Response) => {
+  const {data: { username, password }} = JSON.parse(await req.text())
+  console.log({username})
+  console.log({password})
+
+  db.query(`INSERT INTO users (username, password) VALUES ('${username}','${password}')`, (err, result) => {
+    
+    if (err) console.error("error!", err.message);
+    if  (result.affectedRows) {
+      res.json({
+        is_register: true,
+        message: "Register Successfull!"
+      })
+    }
+  });
 });
 
 export default user_router;

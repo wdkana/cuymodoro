@@ -17,7 +17,7 @@ function HomePage() {
   const [notifyMessage, setNotifyMessage] = useState(false);
 
   useEffect(() => {
-    console.log(actionData);
+    localStorage.setItem("username", "admin");
     if (actionData?.data?.id) {
       setNotify(true);
       setNotifyMessage(actionData?.data?.message);

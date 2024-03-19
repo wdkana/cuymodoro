@@ -1,17 +1,27 @@
 import { createBrowserRouter } from "react-router-dom";
-import { addFeatureAction } from "./actions";
+import { addFeatureAction, loginAction, registerAction } from "./actions";
 import ErrorPage from "../pages/error";
 import HomePage from "../pages/home";
+import Login from "../pages/login";
+import Register from "../pages/register";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/apps",
     element: <HomePage />,
     errorElement: <ErrorPage />,
     action: addFeatureAction,
   },
   {
-    path: "/login",
-    element: <div>Login</div>,
+    path: "/",
+    element: <Login />,
+    errorElement: <ErrorPage />,
+    action: loginAction,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    errorElement: <ErrorPage />,
+    action: registerAction,
   },
 ]);

@@ -1,4 +1,4 @@
-interface IDatabaseInsertResult {
+export interface IDatabaseInsertResult {
   fieldCount: number;
   affectedRows: number;
   insertId: number;
