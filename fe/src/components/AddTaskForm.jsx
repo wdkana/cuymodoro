@@ -1,13 +1,7 @@
-import React, { useEffect } from "react";
-import { Form, useActionData } from "react-router-dom";
+import React from "react";
+import { Form } from "react-router-dom";
 
 function AddTaskForm() {
-  const actionData = useActionData();
-
-  useEffect(() => {
-    console.log({ actionData });
-  }, [actionData]);
-
   return (
     <Form method="post" action="/">
       <div className="flex flex-col gap-4">

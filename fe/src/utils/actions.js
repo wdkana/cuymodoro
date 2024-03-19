@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import axios from "axios"
 
 export const addFeatureAction = async ({ request }) => {
@@ -13,6 +12,4 @@ export const addFeatureAction = async ({ request }) => {
     } catch (err) {
         console.error(`[ACTION ERROR]: ${err}`);
     }
-
-    return redirect("/");
 };

@@ -23,9 +23,9 @@ features_route.post("/add", async (req: Request, res: Response) => {
   try {
     const { username, title, level }: TAddNewTask = await req.json();
     const result = await addNewTask({ username, title, level });
-    console.log("🚀 ~ features_route.post ~ result:", result);
     res.status(200).json({
       id: result.insertId,
+      message: "Feature added successfully!"
     });
   } catch (error) {
     console.log(error.sqlMessage);
