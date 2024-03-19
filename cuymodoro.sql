@@ -1,144 +1,76 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 03:16 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               8.0.30 - MySQL Community Server - GPL
+-- Server OS:                    Win64
+-- HeidiSQL Version:             12.1.0.6537
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Database: `cuymodoro`
---
 
--- --------------------------------------------------------
+-- Dumping database structure for cuymodoro
+DROP DATABASE IF EXISTS `cuymodoro`;
+CREATE DATABASE IF NOT EXISTS `cuymodoro` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `cuymodoro`;
 
---
--- Table structure for table `features`
---
+-- Dumping structure for table cuymodoro.features
+DROP TABLE IF EXISTS `features`;
+CREATE TABLE IF NOT EXISTS `features` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `started_time` time DEFAULT (curtime()),
+  `break_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
+  `status` enum('ongoing','done','break','') COLLATE utf8mb4_general_ci DEFAULT 'ongoing',
+  `level` enum('newcomers','reguler','enthusiast','') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'reguler',
+  `cycle` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `username` (`username`),
+  CONSTRAINT `features_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `features` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `started_time` time DEFAULT current_timestamp(),
-  `break_time` time NOT NULL,
-  `end_time` time NOT NULL,
-  `status` enum('ongoing','done','break','') DEFAULT 'ongoing',
-  `level` enum('newcomers','reguler','enthusiast','') NOT NULL DEFAULT 'reguler',
-  `cycle` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Data exporting was unselected.
 
--- --------------------------------------------------------
-
---
--- Table structure for table `feature_history`
---
-
-CREATE TABLE `feature_history` (
-  `id` int(11) NOT NULL,
-  `feature_id` int(11) NOT NULL,
+-- Dumping structure for table cuymodoro.feature_history
+DROP TABLE IF EXISTS `feature_history`;
+CREATE TABLE IF NOT EXISTS `feature_history` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `feature_id` int NOT NULL,
   `total_hours` time NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `feature_id` (`feature_id`),
+  KEY `username` (`username`),
+  CONSTRAINT `feature_history_ibfk_1` FOREIGN KEY (`feature_id`) REFERENCES `features` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `feature_history_ibfk_2` FOREIGN KEY (`username`) REFERENCES `features` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+-- Data exporting was unselected.
 
---
--- Table structure for table `users`
---
+-- Dumping structure for table cuymodoro.users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(235) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(222) COLLATE utf8mb4_general_ci NOT NULL,
+  `token` text COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(235) NOT NULL,
-  `password` varchar(222) NOT NULL,
-  `token` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Data exporting was unselected.
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `token`) VALUES
-(1, 'admin', 'admin', NULL);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `features`
---
-ALTER TABLE `features`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `username` (`username`);
-
---
--- Indexes for table `feature_history`
---
-ALTER TABLE `feature_history`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `feature_id` (`feature_id`),
-  ADD KEY `username` (`username`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `features`
---
-ALTER TABLE `features`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `feature_history`
---
-ALTER TABLE `feature_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `features`
---
-ALTER TABLE `features`
-  ADD CONSTRAINT `features_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `feature_history`
---
-ALTER TABLE `feature_history`
-  ADD CONSTRAINT `feature_history_ibfk_1` FOREIGN KEY (`feature_id`) REFERENCES `features` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `feature_history_ibfk_2` FOREIGN KEY (`username`) REFERENCES `features` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

@@ -1,11 +1,11 @@
-import { connection as db } from "./config/database";
+import { connection as db } from "../../config/database";
 import {
   ITask,
   TAddNewTask,
   TCheckFeatureStatus,
   TCreateFeatureHistory,
   TUpdateFeatureCycle,
-} from "./types/features/task";
+} from "../features/task";
 import { MysqlError } from "mysql";
 
 export const getLastDataByUsername = (

@@ -8,7 +8,7 @@ import {
   createFeatureHistory,
   getLastDataByUsername,
   updateFeatureCycle,
-} from "../model";
+} from "../types/database/model";
 import { ITask, TAddNewTask, TTimeCalculation } from "../types/features/task";
 
 const features_route = new HyperE.Router();

@@ -48,7 +48,7 @@ function Hero() {
       return axios.put(`${import.meta.env.VITE_API_URL}/features/resume`, {
         id: data?.features?.id,
         username: localStorage.getItem("username"),
-        level,
+        level: level || data?.features?.level,
       });
     },
     onMutate: () => location.reload(),
@@ -106,7 +106,7 @@ function Hero() {
               data?.features?.status && data?.features?.status !== "break"
             }
           >
-            <option defaultValue={"-"}>Pilih Break Level</option>
+            <option defaultValue={"reguler"}>Pilih Break Level</option>
             <option value={"newcomers"}>New Comers</option>
             <option value={"reguler"}>Reguler</option>
             <option value={"enthusiast"}>Enthusiast</option>
