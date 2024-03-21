@@ -20,12 +20,14 @@ function Login() {
               name="username"
               placeholder="username"
               className="input input-bordered w-full rounded-md"
+              required
             />
             <input
               type="password"
               name="password"
               placeholder="******"
               className="input input-bordered w-full rounded-md"
+              required
             />
             <button type="submit" className="btn btn-primary rounded-md">
               Login

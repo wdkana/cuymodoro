@@ -1,6 +1,4 @@
 import HyperE, { Request, Response } from "hyper-express";
-
-import { find, update, create, count } from "@models/mapping"
 import { FAIL, OK } from "@config/response.config";
 import { IsUsernameExist, UserLogin, UserRegistration } from "@controllers/users.controller";
 
@@ -16,46 +14,11 @@ user_router.get("/:username", async (request: Request, response: Response) => {
     })
 });
 
-
-// import { tokenCreation } from "@libs/token-creation.libs"
-// import { compare } from "bcrypt"
-
-// user_router.get("/profile", async (_: Request, res: Response) => {
-//   db.query("SELECT * FROM users", (err, result) => {
-//     if (err) throw new Error("error!");
-//     const profile = {
-//       username: result[0].username,
-//       token: result[0].token,
-//     };
-//     res.json({ profile });
-//   });
-// });
-
-// user_router.post("/login", async (request: Request, response: Response) => {
-//   const input = JSON.parse(await request.text())
-//   const { username, password } = input.data
-
-//   const checkUsername: any = await getUsername({ username })
-
-//   if (!checkUsername) return res.json({ isLogin: false, token: null, message: "Username Tidak Ditemukan" })
-
-//   const userPassword: any = await getUserPassword({ username })
-
-//   const checkPassword = await compare(password, userPassword)
-
-//   if (checkPassword) {
-//     const isLogin = await userTokenCreationModel({ username, token: tokenCreation() })
-//     if (isLogin) {
-//       const token = await getUserToken({ username })
-//       res.json({ isLogin: true, token, message: "Login Successfull!" });
-//     }
-//   } else {
-//     res.json({ isLogin: false, token: null, message: "wrong password!" });
-//   }
-// });
-
 user_router.post("/register", async (request: Request, response: Response) => {
     const { username, password } = await request.json()
+    if (!username || !password) FAIL(response, "silahkan isi data terlebih dahulu")
+    if (username.length < 4) FAIL(response, "username harus lebih dari 4 karakter")
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) FAIL(response, "Username tidak valid. Gunakan huruf, angka, dan garis bawah (_) saja")
 
     const isUsernameExist = await IsUsernameExist({ username })
     if (isUsernameExist) FAIL(response, "username sudah terdaftar")
@@ -70,6 +33,8 @@ user_router.post("/register", async (request: Request, response: Response) => {
 
 user_router.post("/login", async (request: Request, response: Response) => {
     const { username, password } = await request.json()
+    if (!username || !password) FAIL(response, "input tidak valid")
+
     const isUsernameExist = await IsUsernameExist({ username })
 
     const token = await UserLogin({ username, password })

@@ -8,6 +8,8 @@ export const loginAction = async ({ request }) => {
     const username = form.get("username");
     const password = form.get("password");
 
+    if (!username || !password) return { data: { message: "Silahkan input data" } }
+
     try {
         const response = await axios.post(
             `${import.meta.env.VITE_API_URL}/users/login`,
