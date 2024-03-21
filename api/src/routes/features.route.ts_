@@ -1,15 +1,14 @@
 import HyperE, { Request, Response } from "hyper-express";
 import moment from "moment";
 
-import { connection as db } from "../config/database";
+import { connection as db } from "../config/database.config";
 import {
   addNewTask,
   checkFeatureStatus,
   createFeatureHistory,
   getLastDataByUsername,
   updateFeatureCycle,
-} from "../types/database/model";
-import { ITask, TAddNewTask, TTimeCalculation } from "../types/features/task";
+} from "../models/mapping";
 
 const features_route = new HyperE.Router();
 
@@ -19,17 +18,22 @@ features_route.get("/last/:username", async (req, res) => {
   res.json({ features: result });
 });
 
-features_route.post("/add", async (req: Request, res: Response) => {
+features_route.post("/add", async (req, res) => {
   try {
+    console.log("TRYING 🙌")
+
     const { username, title, level }: TAddNewTask = await req.json();
+
     const result = await addNewTask({ username, title, level });
-    res.status(200).json({
+
+    console.log("🚀 ~ features_route.post ~ result:", result)
+
+    res.json({
       id: result.insertId,
       message: "Feature added successfully!"
     });
-  } catch (error) {
-    console.log(error.sqlMessage);
 
+  } catch (error) {
     res.status(400).json({
       message: error?.sqlMessage ?? "Failed add new task",
     });
@@ -52,7 +56,6 @@ async function timeCalculation({
   const total_hours = moment.utc(duration.asMilliseconds()).format("HH:mm:ss");
 
   try {
-    console.log(started_time);
     if (started_time && break_time && status == "break") {
       const newCycle = await updateFeatureCycle({
         id,

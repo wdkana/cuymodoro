@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { addFeatureAction, loginAction, registerAction } from "./actions";
+import { loginAction, registerAction } from "../actions/users.action";
+import { addFeatureAction } from "../actions/features.action";
 import ErrorPage from "../pages/error";
 import HomePage from "../pages/home";
 import Login from "../pages/login";
