@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Notify({ message, goto = "/apps" }) {
+function Notify({ message, goto = "/" }) {
   const navigate = useNavigate();
 
   return (
-    <div className="toast toast-bottom toast-center">
+    <div className="toast toast-top toast-center">
       <div className="alert">
         <span>{message}</span>
-        <div onClick={() => navigate(goto)}>
+        <div onClick={() => navigate(goto)} className="cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

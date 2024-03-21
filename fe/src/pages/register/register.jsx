@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../../components/Layout";
 import HeroContainer from "../../components/HeroContainer";
 import Title from "../../components/Title";
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import useNotification from "../../hooks/useNotification";
 import Notify from "../../components/Notify";
 
@@ -33,6 +33,9 @@ function Register() {
             </button>
           </div>
         </Form>
+        <Link to={"/"} className="text-center">
+          Or Login Here
+        </Link>
       </HeroContainer>
     </Layout>
   );

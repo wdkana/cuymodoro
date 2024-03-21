@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { useActionData } from "react-router-dom";
 
 export default function useNotification() {
-  const actionData = useActionData();
+  const action = useActionData();
   const [notify, setNotify] = useState(false);
   const [notifyMessage, setNotifyMessage] = useState("");
 
   useEffect(() => {
-    if (actionData?.data) {
+    if (action?.data) {
       setNotify(true);
-      setNotifyMessage(actionData?.data?.message);
+      setNotifyMessage(action?.data?.message);
+      setTimeout(() => {
+        setNotify(false);
+      }, 3000);
     }
-  }, [actionData]);
+  }, [action]);
 
   return { notify, notifyMessage };
 }

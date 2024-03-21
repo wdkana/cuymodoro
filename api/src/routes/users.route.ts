@@ -2,7 +2,7 @@ import HyperE, { Request, Response } from "hyper-express";
 
 import { find, update, create, count } from "@models/mapping"
 import { FAIL, OK } from "@config/response.config";
-import { IsUsernameExist, UserRegistration } from "@controllers/users.controller";
+import { IsUsernameExist, UserLogin, UserRegistration } from "@controllers/users.controller";
 
 const user_router = new HyperE.Router();
 
@@ -67,5 +67,18 @@ user_router.post("/register", async (request: Request, response: Response) => {
         message: "registrasi berhasil"
     })
 });
+
+user_router.post("/login", async (request: Request, response: Response) => {
+    const { username, password } = await request.json()
+    const isUsernameExist = await IsUsernameExist({ username })
+
+    const token = await UserLogin({ username, password })
+    if (!isUsernameExist || !token) FAIL(response, "Akun tidak ditemukan")
+
+    OK(response, {
+        message: "login berhasil",
+        data: token
+    })
+})
 
 export default user_router;

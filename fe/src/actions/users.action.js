@@ -12,17 +12,15 @@ export const loginAction = async ({ request }) => {
         const response = await axios.post(
             `${import.meta.env.VITE_API_URL}/users/login`,
             {
-                data: {
-                    username,
-                    password,
-                },
+                username, password,
             }
         );
 
-        if (response.data.isLogin) {
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("username", username);
-        }
+        if (!response.data.is_success) return response
+
+        localStorage.setItem("username", username);
+        localStorage.setItem("token", response.data.data);
+
         return redirect("/apps");
     } catch (err) {
         console.error(`[ACTION LOGIN ERROR]: ${err}`);

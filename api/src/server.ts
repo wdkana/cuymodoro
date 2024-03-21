@@ -14,7 +14,7 @@ dotenv.config();
 hyper.use(cors());
 
 hyper.use("/", main_router);
-hyper.use("/users", [LoggerMiddleware] as any, user_router);
+hyper.use("/users", { middlewares: [{ pattern: '', middleware: LoggerMiddleware }] } as any, user_router);
 
 // hyper.use('/features', { middlewares: [{ pattern: '', middleware: auth_middleware }] } as any, features_route);
 
