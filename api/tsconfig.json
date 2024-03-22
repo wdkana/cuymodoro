@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@routes/*": ["./src/routes/*"],
+      "@config/*": ["./src/config/*"],
+      "@models/*": ["./src/models/*"],
+      "@libs/*": ["./src/libs/*"],
+      "@type/*": ["./src/types/*"],
+      "@controllers/*": ["./src/controllers/*"]
+    },
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+  },
+  "exclude": ["node_modules"],
+}

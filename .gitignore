@@ -2,3 +2,5 @@ fe/node_m*
 api/node_m*
 fe/.env
 api/.env
+dist
+build
