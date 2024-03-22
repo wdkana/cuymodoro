@@ -1,28 +1,22 @@
 import {
-  MiddlewareNext,
   Request,
   Response,
-  MiddlewarePromise,
-  MiddlewareHandler,
 } from "hyper-express";
 import { FAIL } from "@config/response.config";
+import UserController from "@controllers/users.controller";
 
-export const AuthMiddleware: MiddlewareHandler = async (
+export const authMiddleware = async (
   request: Request,
   response: Response,
-  next: MiddlewareNext
-): MiddlewarePromise => {
-  const header = request.headers["cuytoken"];
-  if (!header) FAIL(response, "cuytoken required for authorization");
+) => {
+    const { username } = await request.json()
+    const token = request.headers["cuytoken"];
 
-  return next();
-};
+    if (!token) FAIL(response, "cuytoken required for authorization");
 
-export const LoggerMiddleware: MiddlewareHandler = async (
-  request: Request,
-  _: Response,
-  next: MiddlewareNext
-): MiddlewarePromise => {
-  console.log(`Resource executed in ${request.path}`);
-  return next();
+    const isTokenVerify = await UserController.isTokenVerified({ username, token })
+
+    if (!isTokenVerify) {
+      FAIL(response, "cuytoken missmatched");
+    }
 };

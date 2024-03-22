@@ -1,56 +1,86 @@
-import { tokenCreation } from "@libs/token-creation.libs"
-import { count, create, find, update } from "@models/mapping"
-import { compare } from "bcrypt"
+import { tokenCreation } from "@libs/token-creation.libs";
+import { count, create, find, update } from "@models/mapping";
+import { compare } from "bcrypt";
+import { ReadQuery, WriteQuery } from "../type/query.type";
+import { UserFormParams } from "../type/users.type";
 
-type IsUsernameExistParams = {
-    username: string
-}
-
-type UserRegistrationParams = {
-    username: string,
-    password: string
-}
-
-export async function IsUsernameExist({ username }: IsUsernameExistParams): Promise<Boolean> {
+async function isUsernameExist({ username }: { username: string; }): Promise<boolean> {
     try {
-        const searchData = { username }
-        const selectedColumn = ["username"]
+        const q: ReadQuery = {
+            tableName: "users",
+            searchData: { username },
+            selectedColumn: ['username']
+        };
 
-        const userCount = await count("users", searchData, selectedColumn)
-        return userCount
+        const userCount = await count({ tableName: q.tableName, params: q.searchData, columns: q.selectedColumn });
+
+        return userCount;
     } catch (error) {
-        return error as Boolean
+        return error as boolean;
     }
 }
 
-export async function UserRegistration({ username, password }: UserRegistrationParams): Promise<Boolean> {
+async function isTokenVerified({ username, token }: { username: string; token: string }): Promise<boolean> {
     try {
-        const data = { username, password }
-        const createUser = await create("users", data)
+        const q: ReadQuery = {
+            tableName: "users",
+            searchData: { username, token },
+            selectedColumn: ['token']
+        };
+        const userCount = await count({ tableName: q.tableName, params: q.searchData, columns: q.selectedColumn });
 
-        return createUser
+        return userCount;
     } catch (error) {
-        return error as Boolean
+        return error as boolean;
     }
 }
 
-export async function UserLogin({ username, password }: UserRegistrationParams): Promise<string> {
+async function userRegistration({
+    username,
+    password,
+}: UserFormParams): Promise<boolean> {
     try {
-        const searchData = { username }
-        const passwordColumn = ["password"]
+        const q: WriteQuery = {
+            tableName: "users",
+            data: { username, password }
+        }
+        const createUser = await create({ tableName: q.tableName, data: q.data });
 
-        const user = await find("users", searchData, passwordColumn)
-        const isPasswordMatch = await compare(password, user.password)
+        return createUser;
+    } catch (error) {
+        return error as boolean;
+    }
+}
+
+async function userLogin({
+    username,
+    password,
+}: UserFormParams): Promise<string> {
+    try {
+        const q: ReadQuery = {
+            tableName: "users",
+            searchData: { username },
+            selectedColumn: ['password']
+        };
+
+        const user = await find({ tableName: q.tableName, params: q.searchData, columns: q.selectedColumn });
+
+        const isPasswordMatch = await compare(password, user.password);
         if (!isPasswordMatch) return ""
 
-        const condition = { username }
-        const data = { token: tokenCreation() }
-        const createToken = await update("users", data, condition)
-        if (!createToken) return "token not created"
+        const qq: WriteQuery = {
+            tableName: "users",
+            data: { token: tokenCreation() },
+            conditions: { username }
+        }
 
-        return data.token
+        const createToken = await update({ tableName: qq.tableName, data: qq.data, conditions: qq.conditions });
+        if (!createToken) return "token not created";
 
+        return qq.data.token;
     } catch (error) {
-        return error as string
+        return error as string;
     }
 }
+
+export = { isUsernameExist, userRegistration, userLogin, isTokenVerified };

@@ -16,8 +16,8 @@ export function tokenCreation(): string {
     }
 
     for (let index = 0; index < token.keyLength; index++) {
-        const isPrefixFirstPosition: Boolean = index === token.prefixPosition - 3
-        const isPrefixLastPosition: Boolean = index == token.keyLength - token.prefixPosition
+        const isPrefixFirstPosition: boolean = index === token.prefixPosition - 3
+        const isPrefixLastPosition: boolean = index == token.keyLength - token.prefixPosition
 
         if (isPrefixFirstPosition || isPrefixLastPosition) token.key += token.prefix
 
