@@ -12,7 +12,6 @@ export const addFeatureAction = async ({ request }) => {
             },
             { headers: { cuytoken: localStorage.getItem("token") } }
         );
-        console.log("🚀 ~ addFeatureAction ~ addFeature:", addFeature)
         return addFeature;
     } catch (err) {
         console.error(`[ACTION ADD FEATURE ERROR]: ${err}`);

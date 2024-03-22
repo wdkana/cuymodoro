@@ -1,20 +1,15 @@
 import { create } from "@models/mapping"
+import { FeatureFormParams } from "../type/features.type";
+import { WriteQuery } from "../type/query.type";
 
-interface Feature {
-  username: string,
-  title: string,
-  level: "newcomers" | "reguler" | "enthusiast"
-}
-
-function get() {
-  return "GET";
-}
-
-async function addNewTask({username, title, level}: Feature) {
+async function addNewTask({ username, title, level }: FeatureFormParams) {
   try {
-    const data = { username, title, level }
-    const createFeature = await create("features", data);
-    console.log("🚀 ~ addNewTask ~ createUser:", createFeature)
+    const q: WriteQuery = {
+      tableName: "features",
+      data: { username, title, level }
+    }
+
+    const createFeature = await create({ tableName: q.tableName, data: q.data });
 
     return createFeature;
   } catch (error) {
@@ -22,8 +17,4 @@ async function addNewTask({username, title, level}: Feature) {
   }
 }
 
-function update() {
-  return "UPDATE";
-}
-
-export = { get, addNewTask, update };
+export = { addNewTask };

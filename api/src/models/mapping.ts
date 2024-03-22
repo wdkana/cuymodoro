@@ -1,11 +1,12 @@
 import { connection as db } from "@config/database.config";
+import { ReadQueryParams, WriteQueryParams } from '../type/query.type';
 
-export const find = (tableName: string, params: Record<string, string>, columns: string[]): Promise<any | undefined> => {
+export const find = ({ tableName, params, columns }: ReadQueryParams): Promise<any | undefined> => {
   return new Promise((resolve, reject) => {
     const keys = Object.keys(params);
     const values = Object.values(params);
 
-    const columnString = columns.join(", ");
+    const columnString = columns?.join(", ");
     const query = `SELECT ${columnString} FROM ${tableName} WHERE ${keys.map(key => `${key}=?`).join(" AND ")}`;
 
     return db.query(query, values, (err, result) => {
@@ -15,12 +16,12 @@ export const find = (tableName: string, params: Record<string, string>, columns:
   });
 };
 
-export const count = (tableName: string, params: Record<string, string>, columns: string[]): Promise<any | undefined> => {
+export const count = ({ tableName, params, columns }: ReadQueryParams): Promise<any | undefined> => {
   return new Promise((resolve, reject) => {
     const keys = Object.keys(params);
     const values = Object.values(params);
 
-    const columnString = columns.join(", ");
+    const columnString = columns?.join(", ");
     const query = `SELECT COUNT(${columnString}) AS count FROM ${tableName} WHERE ${keys.map(key => `${key}=?`).join(" AND ")}`;
 
     return db.query(query, values, (err, result) => {
@@ -30,13 +31,12 @@ export const count = (tableName: string, params: Record<string, string>, columns
   });
 };
 
-export const update = (tableName: string, params: Record<string, string>, conditions: Record<string, string>): Promise<boolean> => {
+export const update = ({ tableName, data, conditions }: WriteQueryParams): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    ;
-    const updateKeys = Object.keys(params);
-    const updateValues = Object.values(params);
-    const conditionKeys = Object.keys(conditions);
-    const conditionValues = Object.values(conditions);
+    const updateKeys = Object.keys(data);
+    const updateValues = Object.values(data);
+    const conditionKeys = Object.keys(conditions || {});
+    const conditionValues = Object.values(conditions || {});
 
     const keyMap = updateKeys.map((key, _) => `${key} = ?`).join(", ");
     const conditionMap = conditionKeys.map(key => `${key} = ?`).join(" AND ");
@@ -51,7 +51,7 @@ export const update = (tableName: string, params: Record<string, string>, condit
   });
 };
 
-export const create = (tableName: string, data: Record<string, any>): Promise<boolean> => {
+export const create = ({ tableName, data }: WriteQueryParams): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     const keys = Object.keys(data);
     const values = Object.values(data);

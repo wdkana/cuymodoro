@@ -1,18 +1,18 @@
 import { tokenCreation } from "@libs/token-creation.libs";
 import { count, create, find, update } from "@models/mapping";
 import { compare } from "bcrypt";
+import { ReadQuery, WriteQuery } from "../type/query.type";
+import { UserFormParams } from "../type/users.type";
 
-type UserFormParams = {
-    username: string;
-    password: string;
-};
-
-async function isUsernameExist({ username }: { username: string }): Promise<boolean> {
+async function isUsernameExist({ username }: { username: string; }): Promise<boolean> {
     try {
-        const searchData = { username };
-        const selectedColumn = ["username"];
+        const q: ReadQuery = {
+            tableName: "users",
+            searchData: { username },
+            selectedColumn: ['username']
+        };
 
-        const userCount = await count("users", searchData, selectedColumn);
+        const userCount = await count({ tableName: q.tableName, params: q.searchData, columns: q.selectedColumn });
 
         return userCount;
     } catch (error) {
@@ -20,15 +20,18 @@ async function isUsernameExist({ username }: { username: string }): Promise<bool
     }
 }
 
-async function isTokenVerified({ username, token }: { username: string, token: string }): Promise<boolean> {
-    try{
-        const searchData = { username, token }
-        const selectedColumn = ["token"]
-        const userCount = await count("users", searchData, selectedColumn)
-        
-        return userCount
-    }catch(error) {
-        return error as boolean
+async function isTokenVerified({ username, token }: { username: string; token: string }): Promise<boolean> {
+    try {
+        const q: ReadQuery = {
+            tableName: "users",
+            searchData: { username, token },
+            selectedColumn: ['token']
+        };
+        const userCount = await count({ tableName: q.tableName, params: q.searchData, columns: q.selectedColumn });
+
+        return userCount;
+    } catch (error) {
+        return error as boolean;
     }
 }
 
@@ -37,8 +40,11 @@ async function userRegistration({
     password,
 }: UserFormParams): Promise<boolean> {
     try {
-        const data = { username, password };
-        const createUser = await create("users", data);
+        const q: WriteQuery = {
+            tableName: "users",
+            data: { username, password }
+        }
+        const createUser = await create({ tableName: q.tableName, data: q.data });
 
         return createUser;
     } catch (error) {
@@ -51,19 +57,27 @@ async function userLogin({
     password,
 }: UserFormParams): Promise<string> {
     try {
-        const searchData = { username };
-        const passwordColumn = ["password"];
+        const q: ReadQuery = {
+            tableName: "users",
+            searchData: { username },
+            selectedColumn: ['password']
+        };
 
-        const user = await find("users", searchData, passwordColumn);
+        const user = await find({ tableName: q.tableName, params: q.searchData, columns: q.selectedColumn });
+
         const isPasswordMatch = await compare(password, user.password);
-        if (!isPasswordMatch) return "";
+        if (!isPasswordMatch) return ""
 
-        const condition = { username };
-        const data = { token: tokenCreation() };
-        const createToken = await update("users", data, condition);
+        const qq: WriteQuery = {
+            tableName: "users",
+            data: { token: tokenCreation() },
+            conditions: { username }
+        }
+
+        const createToken = await update({ tableName: qq.tableName, data: qq.data, conditions: qq.conditions });
         if (!createToken) return "token not created";
 
-        return data.token;
+        return qq.data.token;
     } catch (error) {
         return error as string;
     }
