@@ -30,7 +30,7 @@ export const count = (tableName: string, params: Record<string, string>, columns
   });
 };
 
-export const update = (tableName: string, params: Record<string, string>, conditions: Record<string, string>): Promise<Boolean> => {
+export const update = (tableName: string, params: Record<string, string>, conditions: Record<string, string>): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     ;
     const updateKeys = Object.keys(params);
@@ -51,7 +51,7 @@ export const update = (tableName: string, params: Record<string, string>, condit
   });
 };
 
-export const create = (tableName: string, data: Record<string, any>): Promise<Boolean> => {
+export const create = (tableName: string, data: Record<string, any>): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     const keys = Object.keys(data);
     const values = Object.values(data);
